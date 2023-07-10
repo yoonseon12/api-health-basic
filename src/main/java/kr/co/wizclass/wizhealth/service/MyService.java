@@ -30,6 +30,5 @@ public class MyService {
         List<ExercisePurposeDTO> findUserExercisePurposes = findUser.getUserExercisePurposes();
 
         return FindMyPropileResponse.of(findUser, findUserExercisePurposes);
-
     }
 }
