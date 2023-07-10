@@ -1,0 +1,41 @@
+spring:
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:~/wiz-health
+    username: sa
+    password:
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create
+
+    properties:
+      hibernate:
+        #show-sql: true
+        format_sql: true
+    defer-datasource-initialization: true
+
+  sql:
+    init:
+      mode: always
+
+
+  security:
+    jwt:
+      header: Authorization
+      secret: and0LXlvb25zZW9uLWp3dC15b29uc2Vvbi1qd3QteW9vbnNlb24tand0LXlvb25zZW9uLWp3dC15b29uc2Vvbi1qd3QteW9vbnNlb24tand0LXlvb25zZW9uLWp3dC15b29uc2Vvbi1qd3QteW9vbnNlb24tand0LXlvb25zZW9uLWp3dC15b29uc2Vvbi1qd3QteW9vbnNlb24==
+      access-token-validity-in-seconds: 86400000     # 1일
+      refresh-token-validity-in-seconds: 1209600000  # 2주
+#      access-token-validity-in-seconds: 1000
+#      refresh-token-validity-in-seconds: 1000
+
+logging.level:
+  org.hibernate.SQL: debug
+  org.hibernate.type: trace
