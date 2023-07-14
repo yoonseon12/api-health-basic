@@ -1,11 +1,12 @@
 package kr.co.wizclass.wizhealth.contoller.gym;
 
-import kr.co.wizclass.wizhealth.domain.dto.gym.CreateGymRequest;
-import kr.co.wizclass.wizhealth.domain.dto.gym.CreateGymResponse;
-import kr.co.wizclass.wizhealth.domain.dto.gym.UpdateGymRequest;
-import kr.co.wizclass.wizhealth.domain.dto.gym.UpdateGymResponse;
+import kr.co.wizclass.wizhealth.common.request.PageableParam;
+import kr.co.wizclass.wizhealth.domain.dto.gym.*;
 import kr.co.wizclass.wizhealth.service.GymService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,11 +20,19 @@ public class GymRestController {
     private final GymService gymService;
 
 //    @GetMapping
-//    public ResponseEntity<List<GymResponse>> findAll(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo,
-//                                                     @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-//        Pageable pageable = PageRequest.of(pageNo<1 ? 1 : pageNo, pageSize<1 ? 10 : pageSize);
-//        return ResponseEntity.ok().body(gymService.findAll(pageable));
+//    public ResponseEntity<Page<FindAllGymResponse>> findAll(@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+//                                                            @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+//        //Pageable pageable = PageRequest.of(pageNo<1 ? 1 : pageNo, pageSize<1 ? 10 : pageSize);
+//        Pageable pageable = PageRequest.of((pageNo-1) * pageNo, pageSize);
+//        return ResponseEntity.ok().body(gymService.findGyms(pageable));
 //    }
+
+    @GetMapping
+    public ResponseEntity<Page<FindAllGymResponse>> findAll(@ModelAttribute PageableParam pageableParam) {
+        Pageable pageable = PageRequest.of(
+                pageableParam.getPageNo() - 1, pageableParam.getPageSize());
+        return ResponseEntity.ok().body(gymService.findGyms(pageable));
+    }
 
     @PostMapping
     public ResponseEntity<CreateGymResponse> create(@Valid @RequestBody final CreateGymRequest createGymRequest) {

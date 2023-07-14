@@ -22,22 +22,22 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "email", columnDefinition = "varchar", length = 30, unique = true)
+    @Column(name = "email", columnDefinition = "varchar(30)", unique = true)//length = 30, unique = true)
     private String email;
 
-    @Column(name = "password", columnDefinition = "varchar", length = 255)
+    @Column(name = "password", columnDefinition = "varchar(255)")//, length = 255)
     private String password;
 
-    @Column(name = "username", columnDefinition = "varchar", length = 10)
+    @Column(name = "username", columnDefinition = "varchar(10)")//, length = 10)
     private String username;
 
-    @Column(name = "nickname", columnDefinition = "varchar", length = 10)
+    @Column(name = "nickname", columnDefinition = "varchar(10)")//, length = 10)
     private String nickname;
 
-    @Column(name = "phone", columnDefinition = "varchar", length = 11)
+    @Column(name = "phone", columnDefinition = "varchar(11)")//, length = 11)
     private String phone;
 
-    @Column(name = "activated", columnDefinition = "varchar", length = 1)
+    @Column(name = "activated", columnDefinition = "varchar(1)")//, length = 1)
     private String activated; // Y, N
 
     @OneToMany(mappedBy = "user")

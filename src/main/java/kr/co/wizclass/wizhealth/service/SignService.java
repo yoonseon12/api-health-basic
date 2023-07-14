@@ -92,6 +92,7 @@ public class SignService {
         }
     }
 
+    @Transactional
     public LoginResponse login(LoginRequest loginRequest) {
         User findUser = userRepository.findByEmail(loginRequest.getEmail())
                 .orElseThrow(() -> new CustomException(ErrorCode.INVALID_ACCOUNT));

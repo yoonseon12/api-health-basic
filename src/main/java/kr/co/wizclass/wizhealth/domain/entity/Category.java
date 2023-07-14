@@ -2,10 +2,7 @@ package kr.co.wizclass.wizhealth.domain.entity;
 
 import kr.co.wizclass.wizhealth.domain.entity.basic.BaseEntity;
 import kr.co.wizclass.wizhealth.domain.entity.basic.DelYn;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.SQLDelete;
 
@@ -22,7 +19,7 @@ public class Category extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "category_name", columnDefinition = "varchar", length = 255)
+    @Column(name = "category_name", columnDefinition = "varchar(255)")//, length = 255)
     private String categoryName;
 
     @Column(name = "del_yn")

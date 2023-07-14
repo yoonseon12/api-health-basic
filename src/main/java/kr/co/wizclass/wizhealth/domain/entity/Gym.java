@@ -1,10 +1,8 @@
 package kr.co.wizclass.wizhealth.domain.entity;
 
 import kr.co.wizclass.wizhealth.domain.entity.basic.BaseEntity;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,10 +17,10 @@ public class Gym extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", columnDefinition = "varchar", length = 255)
-    private String name;
+    @Column(name = "gym_name", columnDefinition = "varchar(255)")//, length = 255)
+    private String gymName;
 
-    @Column(name = "telNo", columnDefinition = "varchar", length = 20)
+    @Column(name = "telNo", columnDefinition = "varchar(20)")//, length = 20)
     private String telNo;
 
     @OneToMany(mappedBy = "gym")
@@ -31,7 +29,7 @@ public class Gym extends BaseEntity {
     @Builder
     public Gym(Long id, String name, String telNo) {
         this.id = id;
-        this.name = name;
+        this.gymName = name;
         this.telNo = telNo;
     }
 
@@ -44,7 +42,7 @@ public class Gym extends BaseEntity {
     }
 
     public void updateGym(Gym gym) {
-        this.name = gym.name;
+        this.gymName = gym.gymName;
         this.telNo = gym.telNo;
     }
 

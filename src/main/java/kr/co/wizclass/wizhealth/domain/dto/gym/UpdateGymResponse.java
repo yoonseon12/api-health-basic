@@ -16,7 +16,7 @@ public class UpdateGymResponse {
 
     public static UpdateGymResponse of(Gym gym) {
         return UpdateGymResponse.builder()
-                .name(gym.getName())
+                .name(gym.getGymName())
                 .telNo(gym.getTelNo())
                 .build();
     }

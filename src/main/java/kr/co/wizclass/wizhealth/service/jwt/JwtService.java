@@ -30,6 +30,8 @@ public class JwtService {
                     .setSigningKey(this.secret)
                     .parseClaimsJws(refreshToken);
 
+            System.out.println();
+
             if (!claims.getBody().getExpiration().before(new Date())) {
                 sub = String.valueOf(claims.getBody().get("sub"));
                 roles = String.valueOf(claims.getBody().get("auth"));

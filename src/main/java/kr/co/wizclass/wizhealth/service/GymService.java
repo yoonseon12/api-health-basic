@@ -1,15 +1,14 @@
 package kr.co.wizclass.wizhealth.service;
 
 import kr.co.wizclass.wizhealth.domain.dto.category.CategoryResponse;
-import kr.co.wizclass.wizhealth.domain.dto.gym.CreateGymRequest;
-import kr.co.wizclass.wizhealth.domain.dto.gym.CreateGymResponse;
-import kr.co.wizclass.wizhealth.domain.dto.gym.UpdateGymRequest;
-import kr.co.wizclass.wizhealth.domain.dto.gym.UpdateGymResponse;
+import kr.co.wizclass.wizhealth.domain.dto.gym.*;
 import kr.co.wizclass.wizhealth.domain.entity.Gym;
 import kr.co.wizclass.wizhealth.exception.CustomException;
 import kr.co.wizclass.wizhealth.exception.ErrorCode;
 import kr.co.wizclass.wizhealth.repository.GymRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,11 +21,9 @@ public class GymService {
     private final GymCategoryService gymCategoryService;
     private final GymRepository gymRepository;
 
-//    public List<GymResponse> findAll(Pageable pageable) {
-//        Page<GymDTO> gym = gymRepository.findGym(pageable);
-//
-//        return null;
-//    }
+    public Page<FindAllGymResponse> findGyms(Pageable pageable) {
+        return gymRepository.findGyms(pageable);
+    }
 
     @Transactional
     public CreateGymResponse create(CreateGymRequest createGymRequest) {

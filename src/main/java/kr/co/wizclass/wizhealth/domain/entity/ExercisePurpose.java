@@ -15,10 +15,10 @@ public class ExercisePurpose {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "exercise_purpose_name", columnDefinition = "varchar", length = 255)
+    @Column(name = "exercise_purpose_name", columnDefinition = "varchar(255)")//, length = 255)
     private String exercisePurposeName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "exercisePurposes")
-    private User user;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "exercisePurposes")
+//    private User user;
 }

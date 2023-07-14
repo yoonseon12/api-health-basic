@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.Arrays;
 import java.util.Date;
 
 public class javaTest {
@@ -37,9 +38,29 @@ public class javaTest {
     @Test
     void 숫자생성2() {
         StringBuilder sb = new StringBuilder();
-        for(int i = 1; i<26; i++) {
-            sb.append("("+i+", 1)");
+        for (int i = 1; i<101; i++) {
+            if (i%2==0) {
+                for (int j=1; j<6; j++) {
+                    sb.append("("+i+", "+j+"), ");
+
+                }
+            }
+            else {
+                for (int j=1; j<3; j++) {
+                    sb.append("("+i+", "+j+"), ");
+
+                }
+            }
             sb.append("\n");
+        }
+        System.out.println(sb);
+    }
+
+    @Test
+    void 숫자생성3() {
+        StringBuilder sb = new StringBuilder();
+        for (int i=1; i<101; i++) {
+            sb.append("테스트운동시설").append(i).append("\n");
         }
         System.out.println(sb);
     }

@@ -23,7 +23,7 @@ public class CreateGymResponse {
     public static CreateGymResponse of(Gym gym, List<CategoryResponse> categories) {
         return CreateGymResponse.builder()
                 .id(gym.getId())
-                .name(gym.getName())
+                .name(gym.getGymName())
                 .telNo(gym.getTelNo())
                 .categories(categories)
                 .build();

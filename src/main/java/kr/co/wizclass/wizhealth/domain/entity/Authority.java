@@ -15,7 +15,7 @@ public class Authority extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "authority_name", length = 50, unique = true)
+    @Column(name = "authority_name", columnDefinition = "varchar(50)", unique = true)//, length = 50, unique = true)
     private String authorityName;
 
     @Builder

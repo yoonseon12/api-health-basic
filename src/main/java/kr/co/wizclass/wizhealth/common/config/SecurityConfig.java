@@ -59,7 +59,7 @@ public class SecurityConfig {
                 .requestMatchers(new AntPathRequestMatcher("/api/login")).permitAll() // 로그인 API
                 .requestMatchers(new AntPathRequestMatcher("/api/signup")).permitAll() // 회원가입 API
                 .requestMatchers(new AntPathRequestMatcher("/api/refresh")).permitAll()
-                .requestMatchers(PathRequest.toH2Console()).permitAll() // H2
+//                .requestMatchers(PathRequest.toH2Console()).permitAll() // H2
 
                 .anyRequest().authenticated()
 

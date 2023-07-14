@@ -69,6 +69,7 @@ public class TokenProvider implements InitializingBean {
                 .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + this.accessTokenValidityInMilliseconds))
                 .signWith(key, SignatureAlgorithm.HS512)
+                .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
                 .compact();
     }
 
@@ -79,11 +80,13 @@ public class TokenProvider implements InitializingBean {
                 .collect(Collectors.joining(","));
 
         return Jwts.builder()
+                .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
                 .setSubject(authentication.getName())
-                .claim(AUTHORITIES_KEY, authorities)
+//                .claim(AUTHORITIES_KEY, authorities)
                 .setIssuedAt(now) // 발급시간
                 .setExpiration(new Date(now.getTime() + this.refreshTokenValidityInMilliseconds)) // 만료시간
                 .signWith(key, SignatureAlgorithm.HS512)
+
                 .compact();
     }
 
