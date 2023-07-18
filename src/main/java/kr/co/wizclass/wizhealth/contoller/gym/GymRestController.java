@@ -1,6 +1,7 @@
 package kr.co.wizclass.wizhealth.contoller.gym;
 
 import kr.co.wizclass.wizhealth.common.request.PageableParam;
+import kr.co.wizclass.wizhealth.domain.dto.basic.CommonListResponse;
 import kr.co.wizclass.wizhealth.domain.dto.gym.*;
 import kr.co.wizclass.wizhealth.service.GymService;
 import lombok.RequiredArgsConstructor;
@@ -28,10 +29,12 @@ public class GymRestController {
 //    }
 
     @GetMapping
-    public ResponseEntity<Page<FindAllGymResponse>> findAll(@ModelAttribute PageableParam pageableParam) {
+    public ResponseEntity<CommonListResponse> findAll(@ModelAttribute PageableParam pageableParam,
+                                                      @RequestBody GymSearchCondition gymSearchCondition) {
         Pageable pageable = PageRequest.of(
                 pageableParam.getPageNo() - 1, pageableParam.getPageSize());
-        return ResponseEntity.ok().body(gymService.findGyms(pageable));
+        return ResponseEntity.ok()
+                .body(CommonListResponse.of(gymService.findGyms(pageable, gymSearchCondition)));
     }
 
     @PostMapping

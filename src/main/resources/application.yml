@@ -21,7 +21,7 @@ spring:
 #    database-platform: org.hibernate.dialect.H2Dialect
     database-platform: org.hibernate.dialect.MariaDB103Dialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
 
     properties:
       hibernate:
@@ -41,9 +41,7 @@ spring:
       secret: and0LXlvb25zZW9uLWp3dC15b29uc2Vvbi1qd3QteW9vbnNlb24tand0LXlvb25zZW9uLWp3dC15b29uc2Vvbi1qd3QteW9vbnNlb24tand0LXlvb25zZW9uLWp3dC15b29uc2Vvbi1qd3QteW9vbnNlb24tand0LXlvb25zZW9uLWp3dC15b29uc2Vvbi1qd3QteW9vbnNlb24==
       access-token-validity-in-seconds: 86400000     # 1일
       refresh-token-validity-in-seconds: 1209600000  # 2주
-#      access-token-validity-in-seconds: 1000
-#      refresh-token-validity-in-seconds: 1000
 
-logging.level:
-  org.hibernate.SQL: debug
-  org.hibernate.type: trace
+#logging.level:
+#  org.hibernate.SQL: debug
+#  org.hibernate.type: trace

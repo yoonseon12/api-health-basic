@@ -21,8 +21,8 @@ public class GymService {
     private final GymCategoryService gymCategoryService;
     private final GymRepository gymRepository;
 
-    public Page<FindAllGymResponse> findGyms(Pageable pageable) {
-        return gymRepository.findGyms(pageable);
+    public Page<FindAllGymResponse> findGyms(Pageable pageable, GymSearchCondition gymSearchCondition) {
+        return gymRepository.findGymsV4(pageable, gymSearchCondition);
     }
 
     @Transactional
@@ -42,5 +42,6 @@ public class GymService {
         findGym.updateGym(UpdateGymRequest.toEntity(updateGymRequest));
 
         return UpdateGymResponse.of(findGym);
+
     }
 }

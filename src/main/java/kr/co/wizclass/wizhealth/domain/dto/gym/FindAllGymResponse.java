@@ -21,7 +21,7 @@ public class FindAllGymResponse {
 
     public static FindAllGymResponse of(Gym gym) {
         List<CategoryResponse> categoryResponseList = gym.getCategories().stream()
-                .map(gymCategory -> CategoryResponse.builder()
+                .map(gymCategory ->CategoryResponse.builder()
                         .id(gymCategory.getCategory().getId())
                         .name(gymCategory.getCategory().getCategoryName())
                         .build())

@@ -16,11 +16,11 @@ public class GymCategory extends BaseEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "gym_id")
+    @JoinColumn(name = "gym_id", columnDefinition = "bigint", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     private Gym gym;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", columnDefinition = "bigint", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     private Category category;
 
     @Builder
