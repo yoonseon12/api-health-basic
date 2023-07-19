@@ -33,15 +33,7 @@ public class Gym extends BaseEntity {
         this.telNo = telNo;
     }
 
-    public static Gym of(Long gymId, String name, String telNo) {
-        return  Gym.builder()
-                .id(gymId)
-                .name(name)
-                .telNo(telNo)
-                .build();
-    }
-
-    public void updateGym(Gym gym) {
+    public void changeGym(Gym gym) {
         this.gymName = gym.gymName;
         this.telNo = gym.telNo;
     }

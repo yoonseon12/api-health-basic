@@ -34,7 +34,7 @@ public class GymRepositoryImpl implements GymRepositoryCustom {
     }
 
     /**
-     *  페이징 적용 필요 없는 경우 transform으로 반환데이터 한번에 조작해서 반환
+     *  페이징 적용 필요 없는 경우 transform 으로 반환데이터 한번에 조작해서 반환
      */
     @Override
     public Page<FindAllGymResponse> findGymsV1(Pageable pageable) {

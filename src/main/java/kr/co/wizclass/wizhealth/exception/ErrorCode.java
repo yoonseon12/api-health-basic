@@ -10,7 +10,10 @@ public enum ErrorCode {
     // 400 BAD_REQUEST 잘못된 요청
     BAD_REQUEST(400, "잘못된 요청 입니다."),
     INVALID_INPUT_VALUE(400, "잘못된 입력값 입니다."),
-    METHOD_NOT_READABLE(400, "데이터를 읽을 수 없습니다."),
+    NOT_READABLE_METHOD(400, "데이터를 읽을 수 없습니다."),
+
+    BAD_REQUEST_SAME_PASSWORD(400, "현재 비밀번호와 변경 비밀번호가 동일할 수 없습니다. "),
+
 
     // 401 UNAUTHORIZED 인증되지 않은 접근
     UNAUTHORIZED(401, "인증되지 않은 접근입니다."),
@@ -21,6 +24,7 @@ public enum ErrorCode {
     WRONG_TOKEN(401, "잘못된 JWT 토큰입니다."),
 
     INVALID_ACCOUNT(401, "계정정보가 일치하지 않습니다."),
+    INVALID_PASSWORD(401, "현재 비밀번호가 일치하지 않습니다."),
 
 
     // 403 FORBIDDEN 권한이 없는 접근

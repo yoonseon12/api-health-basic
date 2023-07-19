@@ -1,6 +1,6 @@
 package kr.co.wizclass.wizhealth.domain.dto.my;
 
-import kr.co.wizclass.wizhealth.repository.quertdslDto.ExercisePurposeDTO;
+import kr.co.wizclass.wizhealth.domain.dto.exercisePurpose.ExercisePurposeResponse;
 import kr.co.wizclass.wizhealth.repository.quertdslDto.UserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,17 +13,17 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class FindMyPropileResponse {
-    private Long id;
+public class FindMyProfileResponse {
+    private Long userId;
     private String email;
     private String username;
     private String nickname;
     private String phone;
-    private List<ExercisePurposeDTO> exercisePurposes;
+    private List<ExercisePurposeResponse> exercisePurposes;
 
-    public static FindMyPropileResponse of(UserDTO user, List<ExercisePurposeDTO> exercisePurposesList) {
-        return FindMyPropileResponse.builder()
-                .id(user.getId())
+    public static FindMyProfileResponse of(UserDTO user, List<ExercisePurposeResponse> exercisePurposesList) {
+        return FindMyProfileResponse.builder()
+                .userId(user.getId())
                 .email(user.getEmail())
                 .username(user.getUsername())
                 .nickname(user.getNickname())

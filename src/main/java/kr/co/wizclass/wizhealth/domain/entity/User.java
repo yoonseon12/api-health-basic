@@ -5,17 +5,16 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.UniqueElements;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@DynamicUpdate
 @Table(name = "users")
 public class User extends BaseEntity {
     @Id
@@ -27,6 +26,9 @@ public class User extends BaseEntity {
 
     @Column(name = "password", columnDefinition = "varchar(255)")//, length = 255)
     private String password;
+
+    @Column(name = "password_before", columnDefinition = "varchar(255)")//, length = 255)
+    private String passwordBefore;
 
     @Column(name = "username", columnDefinition = "varchar(10)")//, length = 10)
     private String username;
@@ -47,10 +49,11 @@ public class User extends BaseEntity {
     private List<UserExercisePurpose> userExercisePurposes = new ArrayList<>();
 
     @Builder
-    private User(Long id, String email, String password, String username, String nickname, String phone, String activated) {
+    private User(Long id, String email, String password, String passwordBefore, String username, String nickname, String phone, String activated) {
         this.id = id;
         this.email = email;
         this.password = password;
+        this.passwordBefore = passwordBefore;
         this.username = username;
         this.nickname = nickname;
         this.phone = phone;
@@ -80,5 +83,10 @@ public class User extends BaseEntity {
             return false;
         }
         return true;
+    }
+
+    public void changeUserOfPassword(String currentPassword, String newPassword) {
+        this.password = newPassword;
+        this.passwordBefore = currentPassword;
     }
 }

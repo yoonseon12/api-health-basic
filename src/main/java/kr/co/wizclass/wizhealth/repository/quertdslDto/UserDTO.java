@@ -1,6 +1,6 @@
 package kr.co.wizclass.wizhealth.repository.quertdslDto;
 
-import com.querydsl.core.annotations.QueryProjection;
+import kr.co.wizclass.wizhealth.domain.dto.exercisePurpose.ExercisePurposeResponse;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -19,7 +19,7 @@ public class UserDTO {
     private String activated;
     private String authorityName;
     private List<AuthorityDTO> userAuthorities = new ArrayList<>();
-    private List<ExercisePurposeDTO> userExercisePurposes = new ArrayList<>();
+    private List<ExercisePurposeResponse> userExercisePurposes = new ArrayList<>();
 
     // use : UserRepositoryImpl.findUserWithAuthoritiesByEmail
     public UserDTO(String email, String password, String activated, List<AuthorityDTO> userAuthorities) {
@@ -30,7 +30,7 @@ public class UserDTO {
     }
 
     // use : UserRepositoryImpl.findUserProfileById
-    public UserDTO(Long id, String email, String username, String nickname, String phone, List<ExercisePurposeDTO> userExercisePurposes) {
+    public UserDTO(Long id, String email, String username, String nickname, String phone, List<ExercisePurposeResponse> userExercisePurposes) {
         this.id = id;
         this.email = email;
         this.username = username;

@@ -35,13 +35,15 @@ public class GymService {
     }
 
     @Transactional
-    public UpdateGymResponse update(UpdateGymRequest updateGymRequest) {
-        Gym findGym = gymRepository.findById(updateGymRequest.getId())
+    public UpdateGymResponse changeGym(Long gymId, UpdateGymRequest updateGymRequest) {
+        Gym persistGym = findByGymId(gymId);
+        persistGym.changeGym(UpdateGymRequest.toEntity(updateGymRequest));
+
+        return UpdateGymResponse.of(persistGym);
+    }
+
+    private Gym findByGymId(Long gymId) {
+        return gymRepository.findById(gymId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_GYM));
-
-        findGym.updateGym(UpdateGymRequest.toEntity(updateGymRequest));
-
-        return UpdateGymResponse.of(findGym);
-
     }
 }

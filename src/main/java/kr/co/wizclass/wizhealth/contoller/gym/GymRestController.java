@@ -45,8 +45,9 @@ public class GymRestController {
     }
 
     @PutMapping
-    public ResponseEntity<UpdateGymResponse> update(@Valid @RequestBody final UpdateGymRequest updateGymRequest) {
-        return ResponseEntity.ok().body(gymService.update(updateGymRequest));
+    public ResponseEntity<UpdateGymResponse> changeGym(@PathVariable Long gymId,
+                                                       @Valid @RequestBody final UpdateGymRequest updateGymRequest) {
+        return ResponseEntity.ok().body(gymService.changeGym(gymId, updateGymRequest));
     }
 
 }

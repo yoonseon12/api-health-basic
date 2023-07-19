@@ -1,12 +1,11 @@
 package kr.co.wizclass.wizhealth.repository;
 
-import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import kr.co.wizclass.wizhealth.domain.dto.exercisePurpose.ExercisePurposeResponse;
 import kr.co.wizclass.wizhealth.repository.quertdslDto.*;
 
 import javax.persistence.EntityManager;
-import java.util.Arrays;
 import java.util.List;
 
 import static com.querydsl.core.group.GroupBy.groupBy;
@@ -45,13 +44,13 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     }
 
     @Override
-    public List<UserDTO> findUserProfileByEmail(String email) {
+    public List<UserDTO> findUserProfileById(Long id) {
         return queryFactory
                 .select(user)
                 .from(user)
                 .leftJoin(user.userExercisePurposes, userExercisePurpose)
                 .leftJoin(userExercisePurpose.exercisePurpose, exercisePurpose)
-                .where(user.email.eq(email))
+                .where(user.id.eq(id))
                 .transform(groupBy(user.id).list(
                         Projections.constructor(UserDTO.class,
                                 user.id,
@@ -59,7 +58,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                                 user.username,
                                 user.nickname,
                                 user.phone,
-                                list(Projections.constructor(ExercisePurposeDTO.class,
+                                list(Projections.constructor(ExercisePurposeResponse.class,
                                         exercisePurpose.id,
                                         exercisePurpose.exercisePurposeName)
                                 )

@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface UserRepositoryCustom {
     List<UserDTO> findUserWithAuthoritiesByEmail(String email);
-    List<UserDTO> findUserProfileByEmail(String email);
+    List<UserDTO> findUserProfileById(Long Id);
 }

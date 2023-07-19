@@ -48,7 +48,7 @@ public class GlobalExceptionHandler {
                 errorCode = ErrorCode.BAD_REQUEST;
                 break;
             case "HttpMessageNotReadableException" :
-                errorCode = ErrorCode.METHOD_NOT_READABLE;
+                errorCode = ErrorCode.NOT_READABLE_METHOD;
                 break;
         }
 

@@ -1,11 +1,13 @@
 package kr.co.wizclass.wizhealth.contoller.my;
 
-import kr.co.wizclass.wizhealth.domain.dto.my.FindMyProfileRequest;
-import kr.co.wizclass.wizhealth.domain.dto.my.FindMyPropileResponse;
+import kr.co.wizclass.wizhealth.domain.dto.my.FindMyProfileResponse;
+import kr.co.wizclass.wizhealth.domain.dto.my.UpdatePasswordRequest;
 import kr.co.wizclass.wizhealth.service.MyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/my")
@@ -13,9 +15,16 @@ import org.springframework.web.bind.annotation.*;
 public class MyRestController {
     private final MyService myService;
 
-    @PostMapping("/profile")
-    public ResponseEntity<FindMyPropileResponse> userInfo(@RequestBody final FindMyProfileRequest findMyProfileRequest) {
-        return ResponseEntity.ok().body(myService.findMyProfile(findMyProfileRequest));
+    @PostMapping("/{userId}/profile")
+    public ResponseEntity<FindMyProfileResponse> findMyProfile(@PathVariable final Long userId) {
+        return ResponseEntity.ok().body(myService.findMyProfile(userId));
+    }
+
+    @PutMapping("/{userId}/modified-password")
+    public ResponseEntity changeUserOfPassword(@PathVariable final Long userId,
+                                               @RequestBody @Valid final UpdatePasswordRequest updatePasswordRequest) {
+        myService.changeUserOfPassword(userId, updatePasswordRequest);
+        return ResponseEntity.ok().build();
     }
 
 }

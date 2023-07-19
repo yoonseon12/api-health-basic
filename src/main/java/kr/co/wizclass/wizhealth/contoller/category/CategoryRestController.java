@@ -35,7 +35,6 @@ public class CategoryRestController {
     @PutMapping("/{id}")
     public ResponseEntity<UpdateCategoryResponse> update(@PathVariable final Long id, @RequestBody final UpdateCategoryRequest updateCategoryRequest) {
         return ResponseEntity.ok(categoryService.update(id, updateCategoryRequest));
-
     }
 
     @DeleteMapping("/{id}")

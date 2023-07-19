@@ -7,16 +7,13 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 public class UpdateGymRequest {
-    @NotNull
-    private Long id;
     private String name;
     private String telNo;
 
     public static Gym toEntity(UpdateGymRequest updateGymRequest) {
-        return Gym.of(
-                updateGymRequest.id,
-                updateGymRequest.name,
-                updateGymRequest.telNo);
+        return Gym.builder()
+                .name(updateGymRequest.name)
+                .telNo(updateGymRequest.telNo).build();
     }
 
 }
