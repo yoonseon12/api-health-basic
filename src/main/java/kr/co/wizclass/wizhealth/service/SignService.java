@@ -7,13 +7,13 @@ import kr.co.wizclass.wizhealth.domain.dto.sign.LoginRequest;
 import kr.co.wizclass.wizhealth.domain.dto.sign.LoginResponse;
 import kr.co.wizclass.wizhealth.domain.dto.sign.SignupRequest;
 import kr.co.wizclass.wizhealth.domain.dto.sign.SignupResponse;
-import kr.co.wizclass.wizhealth.domain.entity.RefreshToken;
 import kr.co.wizclass.wizhealth.domain.entity.User;
 import kr.co.wizclass.wizhealth.domain.entity.UserAuthority;
 import kr.co.wizclass.wizhealth.exception.CustomException;
 import kr.co.wizclass.wizhealth.exception.ErrorCode;
-import kr.co.wizclass.wizhealth.repository.*;
-import kr.co.wizclass.wizhealth.repository.quertdslDto.AuthorityDTO;
+import kr.co.wizclass.wizhealth.repository.AuthorityRepository;
+import kr.co.wizclass.wizhealth.repository.UserAuthorityRepository;
+import kr.co.wizclass.wizhealth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,8 +23,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -35,7 +35,6 @@ public class SignService {
     private final AuthorityRepository authorityRepository;
     private final UserAuthorityRepository userAuthorityRepository;
     private final UserExercisePurposeService userExercisePurposeService;
-    private final RefreshTokenRepository refreshTokenRepository;
 
     private final PasswordEncoder passwordEncoder;
     private final TokenProvider tokenProvider;
@@ -67,7 +66,7 @@ public class SignService {
         userAuthorityRepository.save(roleTest);
 
         // 운동목적 저장
-        List<ExercisePurposeResponse> savedExercisePurposes = null;
+        List<ExercisePurposeResponse> savedExercisePurposes = new ArrayList<>();
         if (savedExercisePurposes != null && !signupRequest.getExercisePurposes().isEmpty()) {
             savedExercisePurposes =  userExercisePurposeService.create(savedUser.getId(), signupRequest.getExercisePurposes());
         }
@@ -97,32 +96,33 @@ public class SignService {
         User findUser = userRepository.findByEmail(loginRequest.getEmail())
                 .orElseThrow(() -> new CustomException(ErrorCode.INVALID_ACCOUNT));
 
-        if (!passwordEncoder.matches(loginRequest.getPassword(), findUser.getPassword())) {
-            throw new CustomException(ErrorCode.INVALID_ACCOUNT);
-        }
-
-        if (!"Y".equals(findUser.getActivated())) {
-            throw new CustomException(ErrorCode.DEACTIVATE_USER);
-        }
+        validateLogin(loginRequest, findUser);
 
         // 인증
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword());
-        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+        Authentication authentication = authenticationManagerBuilder.getObject()
+                .authenticate(authenticationToken);
+
         TokenDTO token = tokenProvider.createToken(authentication);
 
-        List<AuthorityDTO> authorities = authentication.getAuthorities().stream()
-                .map(role -> new AuthorityDTO(String.valueOf(role)))
-                .collect(Collectors.toList());
+        return LoginResponse.of(findUser.getEmail(), authentication.getAuthorities(), token);
+    }
 
-        // refresh token DB 저장
-        // TODO : 확인필요 : refresh 토큰을 재발급할 때마다 사용자의 모든 이전의 토큰정보 삭제해야할까? -> 그럼 다중 프로덕트는?
-        RefreshToken refreshToken = RefreshToken.builder()
-                .refreshToken(token.getRefreshToken())
-                .keyEmail(authentication.getName())
-                .build();
-        refreshTokenRepository.save(refreshToken);
+    private void validateLogin(LoginRequest loginRequest, User user) {
+        checkPassword(loginRequest.getPassword(), user.getPassword());
+        checkActivated(user.getActivated());
+    }
 
-        return LoginResponse.of(findUser.getEmail(), authorities, token);
+    private void checkPassword(String loginPassword, String encodeUserPassword) {
+        if (!passwordEncoder.matches(loginPassword, encodeUserPassword)) {
+            throw new CustomException(ErrorCode.INVALID_ACCOUNT);
+        }
+    }
+
+    private void checkActivated(String activatedByUser) {
+        if (!"Y".equals(activatedByUser)) {
+            throw new CustomException(ErrorCode.DEACTIVATE_USER);
+        }
     }
 }

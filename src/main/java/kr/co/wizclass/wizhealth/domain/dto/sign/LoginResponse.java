@@ -6,8 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @AllArgsConstructor
@@ -19,8 +22,12 @@ public class LoginResponse {
     private TokenDTO token;
 
     public static LoginResponse of(String email,
-                                      List<AuthorityDTO> roles,
+                                   Collection<? extends GrantedAuthority> authentication,
                                       TokenDTO token) {
+        List<AuthorityDTO> roles = authentication.stream()
+                .map(role -> new AuthorityDTO(String.valueOf(role)))
+                .collect(Collectors.toList());
+
         return LoginResponse.builder()
                 .email(email)
                 .roles(roles)

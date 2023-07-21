@@ -39,8 +39,8 @@ spring:
     jwt:
       header: Authorization
       secret: and0LXlvb25zZW9uLWp3dC15b29uc2Vvbi1qd3QteW9vbnNlb24tand0LXlvb25zZW9uLWp3dC15b29uc2Vvbi1qd3QteW9vbnNlb24tand0LXlvb25zZW9uLWp3dC15b29uc2Vvbi1qd3QteW9vbnNlb24tand0LXlvb25zZW9uLWp3dC15b29uc2Vvbi1qd3QteW9vbnNlb24==
-      access-token-validity-in-seconds: 86400000     # 1일
-      refresh-token-validity-in-seconds: 1209600000  # 2주
+      access-token-validity-in-seconds: 86_400     # 1일
+      refresh-token-validity-in-seconds: 1_209_600  # 2주
 
 #logging.level:
 #  org.hibernate.SQL: debug

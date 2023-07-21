@@ -1,11 +1,11 @@
 package kr.co.wizclass.wizhealth.contoller.sign;
 
-import kr.co.wizclass.wizhealth.service.jwt.JwtService;
 import kr.co.wizclass.wizhealth.domain.dto.sign.LoginRequest;
 import kr.co.wizclass.wizhealth.domain.dto.sign.LoginResponse;
 import kr.co.wizclass.wizhealth.domain.dto.sign.SignupRequest;
 import kr.co.wizclass.wizhealth.domain.dto.sign.SignupResponse;
 import kr.co.wizclass.wizhealth.service.SignService;
+import kr.co.wizclass.wizhealth.service.jwt.RefreshTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +22,7 @@ import java.util.Map;
 @RequestMapping("/api")
 public class SignRestController {
     private final SignService signService;
-    private final JwtService jwtService;
+    private final RefreshTokenService refreshTokenService;
     @PostMapping("/signup")
     public ResponseEntity<SignupResponse> signup(@Valid @RequestBody final SignupRequest signupRequest) {
         SignupResponse signupResponse = signService.signup(signupRequest);
@@ -38,7 +38,7 @@ public class SignRestController {
 
     @PostMapping("/refresh")
     public ResponseEntity<Map<String, String>> refresh(@RequestBody final Map<String, String> refreshTokenMap) {
-        return ResponseEntity.ok().body(jwtService.refresh(refreshTokenMap));
+        return ResponseEntity.ok().body(refreshTokenService.refresh(refreshTokenMap));
     }
 
 }

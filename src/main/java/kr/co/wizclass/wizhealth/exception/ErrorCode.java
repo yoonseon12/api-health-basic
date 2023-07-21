@@ -18,7 +18,7 @@ public enum ErrorCode {
     // 401 UNAUTHORIZED 인증되지 않은 접근
     UNAUTHORIZED(401, "인증되지 않은 접근입니다."),
 
-    INVALID_TOKEN(401, "유효하지 않은 JWT 서명입니다."),
+    INVALID_TOKEN(401, "유효하지 않은 JWT 토큰입니다."),
     EXPIRED_TOKEN(401, "만료된 JWT 토큰입니다."),
     UNAUTHORIZED_TOKEN(401, "지원하지 않는 JWT 토큰입니다."),
     WRONG_TOKEN(401, "잘못된 JWT 토큰입니다."),
