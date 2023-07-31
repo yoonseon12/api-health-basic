@@ -31,7 +31,7 @@ public class SignRestController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody final LoginRequest loginRequest) {
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody final LoginRequest loginRequest) {
         LoginResponse loginResponse = signService.login(loginRequest);
         return ResponseEntity.ok().body(loginResponse);
     }
