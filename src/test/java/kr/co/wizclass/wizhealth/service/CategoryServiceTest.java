@@ -1,14 +1,15 @@
 package kr.co.wizclass.wizhealth.service;
 
-import kr.co.wizclass.wizhealth.domain.dto.category.CreateCategoryRequest;
-import kr.co.wizclass.wizhealth.domain.dto.category.CreateCategoryResponse;
-import kr.co.wizclass.wizhealth.domain.dto.category.UpdateCategoryRequest;
-import kr.co.wizclass.wizhealth.domain.dto.category.UpdateCategoryResponse;
-import kr.co.wizclass.wizhealth.domain.entity.Category;
-import kr.co.wizclass.wizhealth.domain.entity.basic.DelYn;
-import kr.co.wizclass.wizhealth.exception.CustomException;
-import kr.co.wizclass.wizhealth.exception.ErrorCode;
-import kr.co.wizclass.wizhealth.repository.CategoryRepository;
+import kr.co.wizclass.wizhealth.domain.category.domain.Category;
+import kr.co.wizclass.wizhealth.domain.category.dto.CreateCategoryRequest;
+import kr.co.wizclass.wizhealth.domain.category.dto.CreateCategoryResponse;
+import kr.co.wizclass.wizhealth.domain.category.dto.UpdateCategoryRequest;
+import kr.co.wizclass.wizhealth.domain.category.dto.UpdateCategoryResponse;
+import kr.co.wizclass.wizhealth.global.common.domain.DelYn;
+import kr.co.wizclass.wizhealth.global.error.exception.BusinessException;
+import kr.co.wizclass.wizhealth.global.error.exception.ErrorCode;
+import kr.co.wizclass.wizhealth.domain.category.dao.CategoryRepository;
+import kr.co.wizclass.wizhealth.domain.category.application.CategoryService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,9 @@ class CategoryServiceTest {
     void 카테고리_등록() {
         // given
         String newCategoryName = "신규 카테고리명";
-        CreateCategoryRequest request = CreateCategoryRequest.builder().categoryName(newCategoryName).build();
+        CreateCategoryRequest request = CreateCategoryRequest.builder()
+                .categoryName(newCategoryName)
+                .build();
 
         // when
         CreateCategoryResponse response = categoryService.create(request);
@@ -78,7 +81,7 @@ class CategoryServiceTest {
         em.clear();
 
         Category deletedCategory = categoryRepository.findById(deleteTargetId)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_CATEGORY));
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_CATEGORY));
 
         // then
         //TODO : 해결예정
