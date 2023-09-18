@@ -5,6 +5,7 @@ import kr.co.wizclass.wizhealth.global.security.JwtAuthenticationEntryPoint;
 import kr.co.wizclass.wizhealth.global.security.JwtSecurityConfig;
 import kr.co.wizclass.wizhealth.global.security.TokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -58,7 +59,7 @@ public class SecurityConfig {
                 .requestMatchers(new AntPathRequestMatcher("/api/v1/users/signup")).permitAll() // 회원가입 API
                 .requestMatchers(new AntPathRequestMatcher("/api/v1/auths/login")).permitAll()  // 로그인 API
                 .requestMatchers(new AntPathRequestMatcher("/api/v1/auths/token")).permitAll()  // 토큰 재발급 API
-//                .requestMatchers(PathRequest.toH2Console()).permitAll() // H2
+                .requestMatchers(PathRequest.toH2Console()).permitAll() // H2
 
                 .anyRequest().authenticated()
 

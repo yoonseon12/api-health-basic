@@ -7,11 +7,8 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import kr.co.wizclass.wizhealth.domain.category.domain.QCategory;
 import kr.co.wizclass.wizhealth.domain.category.dto.CategoryResponse;
 import kr.co.wizclass.wizhealth.domain.gym.domain.Gym;
-import kr.co.wizclass.wizhealth.domain.gym.domain.QGym;
-import kr.co.wizclass.wizhealth.domain.gym.domain.QGymCategory;
 import kr.co.wizclass.wizhealth.domain.gym.dto.FindAllGymResponse;
 import kr.co.wizclass.wizhealth.domain.gym.dto.GymSearchCondition;
 import org.springframework.data.domain.Page;
@@ -24,9 +21,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.querydsl.core.group.GroupBy.groupBy;
-import static kr.co.wizclass.wizhealth.domain.category.domain.QCategory.*;
+import static kr.co.wizclass.wizhealth.domain.category.domain.QCategory.category;
 import static kr.co.wizclass.wizhealth.domain.gym.domain.QGym.gym;
-import static kr.co.wizclass.wizhealth.domain.gym.domain.QGymCategory.*;
+import static kr.co.wizclass.wizhealth.domain.gym.domain.QGymCategory.gymCategory;
 
 public class GymRepositoryImpl implements GymRepositoryCustom {
 
